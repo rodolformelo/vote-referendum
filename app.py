@@ -21,7 +21,7 @@ def save_vote(idu1,idu2, option1, option2, chosen_option, chosen_option_audio):
                 'Timestamp': pd.Timestamp.now()}
     new_vote = pd.DataFrame(new_vote, index=[0])
     votes_df = pd.concat([votes_df,new_vote], ignore_index=True)
-    votes_df = conn.update(data=df)
+    votes_df = conn.update(data=votes_df)
 
 # Load the Excel file
 df = pd.read_excel(excel_file)
