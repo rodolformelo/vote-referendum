@@ -2,16 +2,16 @@ import streamlit as st
 import pandas as pd
 import random
 import os
+from streamlit_gsheets import GSheetsConnection
 
 # File paths
 excel_file = r'data.xlsx'
-csv_file = 'voting_data.csv'
 
-# Load or initialize the DataFrame
-if os.path.exists(csv_file):
-    votes_df = pd.read_csv(csv_file)
-else:
-    votes_df = pd.DataFrame(columns=['IDU1','IDU2','Option1', 'Option2', 'ChosenOption', 'ChosenOptionAudio', 'Timestamp'])
+# Create a connection object.
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+votes_df = conn.read()
+votes_df = votes_df.dropna()
 
 # Function to save a vote
 def save_vote(idu1,idu2, option1, option2, chosen_option, chosen_option_audio):
@@ -21,7 +21,7 @@ def save_vote(idu1,idu2, option1, option2, chosen_option, chosen_option_audio):
                 'Timestamp': pd.Timestamp.now()}
     new_vote = pd.DataFrame(new_vote, index=[0])
     votes_df = pd.concat([votes_df,new_vote], ignore_index=True)
-    votes_df.to_csv(csv_file, index=False)
+    votes_df = conn.update(data=df)
 
 # Load the Excel file
 df = pd.read_excel(excel_file)
