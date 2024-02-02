@@ -10,12 +10,12 @@ excel_file = r'data.xlsx'
 # Create a connection object.
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-votes_df = conn.read()
-votes_df = votes_df.dropna()
 
 # Function to save a vote
 def save_vote(idu1,idu2, option1, option2, chosen_option, chosen_option_audio):
     global votes_df
+    votes_df = conn.read()
+    votes_df = votes_df.dropna()
     new_vote = {'IDU1':idu1, 'IDU2':idu2, 'Option1': option1, 'Option2': option2, 
                 'ChosenOption': chosen_option, 'ChosenOptionAudio':chosen_option_audio,
                 'Timestamp': pd.Timestamp.now()}
