@@ -42,22 +42,22 @@ options = get_random_options()
 
 st.write("## Opzione 1")
 st.write(options['d3_'][0])
-if st.button("Vota per l'opzione 1", key='vote1'):        
-    save_vote(options['IDU'][0],options['IDU'][1], options['d3_'][0], 
-                options['d3_'][1], 1,options['rnd'][0])
+option1 = st.button("Vota per l'opzione 1", key='vote1', on_click = save_vote, 
+                    args=(options['IDU'][0],options['IDU'][1], options['d3_'][0], 
+                options['d3_'][1], 1,options['rnd'][0]))
      
 
 st.write("## Opzione 2")
 st.write(options['d3_'][1])
-if st.button("Vota per l'opzione 2", key='vote2'):        
-    save_vote(options['IDU'][0],options['IDU'][1], options['d3_'][0], 
-                options['d3_'][1], 2, options['rnd'][1])
+option2 = st.button("Vota per l'opzione 2", key='vote2', on_click = save_vote,        
+    args = (options['IDU'][0],options['IDU'][1], options['d3_'][0], 
+                options['d3_'][1], 2, options['rnd'][1]))
     
 st.write("## Pari")
 st.write("Vota per nessuna delle due opzioni")
 # Draw option
-if st.button("Pari", key='draw'):    
-    save_vote(options['IDU'].iloc[0], options['IDU'].iloc[1], options['d3_'].iloc[0], 
-            options['d3_'].iloc[1], 3, 3)  
+option3 =  st.button("Pari", key='draw', on_click = save_vote,    
+    args = (options['IDU'].iloc[0], options['IDU'].iloc[1], options['d3_'].iloc[0], 
+            options['d3_'].iloc[1], 3, 3))
 
 
